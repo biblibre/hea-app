@@ -11,6 +11,8 @@
 -->
 
 <div id="page">
+  <h1>Some numbers</h1>
   <p><% library_count %> libraries are sharing data</p>
+  <h1>Marc flavour repartition</h1>
   <div id="donut_flavours"></div>
 </div>
