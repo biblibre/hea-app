@@ -8,10 +8,10 @@ use JSON;
 
 get '/' => sub {
     my $library_count = Hea::Data::getLibraryCount;
-    my $marcflavour_count = Hea::Data::getMarcFlavourRepartition;
+    my $marcflavourrepartition = Hea::Data::getMarcFlavourRepartition;
+    Hea::Data::writeMarcFlavourCsv;
     template 'index' => { 
       library_count => $library_count,
-      marcflavour_count => $marcflavour_count,
       load_d3j => 1,
       donut_flavours => 1
     };
