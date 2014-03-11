@@ -25,17 +25,3 @@ template: "simple"
 #   template_toolkit:
 #     start_tag: '[%'
 #     end_tag:   '%]'
-
-plugins:
-    Database:
-        driver: 'mysql'
-        host: 'localhost'
-        database: 'hea'
-        port: 3306
-        username: 'hea'
-        password: 'test'
-        dbi_params:
-            RaiseError: 1
-            AutoCommit: 1
-        on_connect_do: ["SET NAMES 'utf8'", "SET CHARACTER SET 'utf8'" ]
-        log_queries: 1
