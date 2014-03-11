@@ -11,4 +11,5 @@
 -->
 
 <div id="page">
+  <p><% library_count %> libraries are sharing data</p>
 </div>

@@ -1,10 +1,13 @@
 package Hea::App;
 use Dancer ':syntax';
+use Hea::Data;
+use Template;
 
-our $VERSION = '0.1';
 
 get '/' => sub {
-    template 'index';
+    my $count = Hea::Data::getLibraryCount;
+    debug "count: $count";
+    template 'index' => { library_count => $count };
 };
 
 true;
