@@ -11,6 +11,9 @@
     <script type="text/javascript">/* <![CDATA[ */
     !window.jQuery && document.write('<script type="text/javascript" src="<% request.uri_base %>/javascripts/jquery.js"><\/script>')
 /* ]]> */</script>
+  <% IF load_d3j %>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+  <% END %>
 
   </head>
   <body>
@@ -29,4 +32,7 @@
       Powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
     </div>
   </body>
+  <% IF donut_flavours %>
+    <script src="<% request.uri_base %>/javascripts/donut_flavours.js"></script>
+  <% END %>
 </html>

@@ -10,4 +10,8 @@ sub getLibraryCount{
     database->quick_count('library', {});
 }
 
+sub getMarcFlavourRepartition{
+    my $nb_unimarc = database->quick_count('library', { });
+}
+
 true;
