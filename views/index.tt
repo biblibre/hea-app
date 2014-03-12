@@ -13,6 +13,12 @@
 <div id="page">
   <h1>Some numbers</h1>
   <p><% library_count %> libraries are sharing data</p>
-  <h1>Marc flavour repartition</h1>
-  <div id="donut_flavours"></div>
+  <div class="row">
+    <div class="col-md-6"><h1>Marc flavour repartition</h1></div>
+    <div class="col-md-6"><h1>Biblios volumetry</h1></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6" id="donut_flavours"></div>
+    <div class="col-md-6" id="donut_bibrange"></div>
+  </div>
 </div>
