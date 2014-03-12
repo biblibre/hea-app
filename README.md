@@ -3,24 +3,59 @@ hea-app
 
 This website intends to display koha community usage statistics. Data are collected from installed koha if librarian wants anonymously or not.
 
+## External references
+
+ * http://wiki.koha-community.org/w/index.php?title=KohaUsageStat_RFC
+ * https://github.com/jajm/hea-ws
+
 ## Install perl libraries
 
-  root # curl -L http://cpanmin.us | perl - --sudo Dancer
-  root # perl cpanminus.pl --sudo Dancer::Plugin::Database                                                              
-  root # perl cpanminus.pl --sudo Template                                                              
+* Libraries used: Dancer,  Dancer::Plugin::Database, Template
+```
+  # one installation way
+  root # curl -L http://cpanmin.us | perl - --sudo <lib_name>
+```
 
-## Create database and mock data
+## Database and sample data
 
-  root # cat create-database.sh 
+ 1. Some mocks data are available in sql/mock-data.sql
+ 2. Schema is in sql/schema.sql 
 
-  #!/bin/bash
-  
-  DB=hea
-  USER=hea
-  PASS=test
-  
-  mysql -e "CREATE DATABASE $DB CHARACTER SET utf8 COLLATE utf8_bin;"
-  mysql -e "GRANT ALL privileges ON $DB.* TO $USER@'localhost' IDENTIFIED BY '$PASS';"
+## Available data for rendering
 
-- Some mocks data are available in sql/mock-data.sql
-- Schema is in sql/schema.sql 
+ * Metrics available in volumetry table
+```
++---------------+
+| name          |
++---------------+
+| biblio        |
+| borrowers     |
+| old_issues    |
+| aqorders      |
+| subscription  |
+| auth_header   |
+| old_reservesi |
+| old_reserves  |
++---------------+
+```
+
+ * System preferences recorded: marcflavour and IntranetBiblioDefaultView
+```
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| library_id | int(11)      | NO   |     | NULL    |       |
+| name       | varchar(255) | NO   |     | NULL    |       |
+| value      | text         | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+```
+
+ * Library table
+```
++------------+----------------------------+--------------------+--------------+---------+
+| library_id | name                       | url                | library_type | country |
++------------+----------------------------+--------------------+--------------+---------+
+|          1 | hea experimental library   | http://example.com | UNIVERSITY   | France  |
++------------+----------------------------+--------------------+--------------+---------+
+```
+
