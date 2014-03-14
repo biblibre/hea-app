@@ -2,17 +2,15 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-type" content="text/html; charset=<% settings.charset %>" />
+    <meta http-equiv="Content-type" content="text/html; charset=[% settings.charset %]" />
     <title>Hea::App</title>
-    <link rel="stylesheet" href="<% request.uri_base %>/css/bootstrap.css" />
+    <link rel="stylesheet" href="[% request.uri_base %]/css/bootstrap.css" />
 
 
     <script type="text/javascript">/* <![CDATA[ */
-    !window.jQuery && document.write('<script type="text/javascript" src="<% request.uri_base %>/javascripts/jquery.js"><\/script>')
+    !window.jQuery && document.write('<script type="text/javascript" src="[% request.uri_base %]/javascripts/jquery.js"><\/script>')
 /* ]]> */</script>
-  <% IF load_d3j %>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-  <% END %>
 
   </head>
   <body  role="document">
@@ -52,19 +50,20 @@
         <p><a href="#about" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
       </div>
 
-    <% content %>
+    [% content %]
     <div id="footer">
-      Powered by <a href="http://perldancer.org/">Dancer</a> <% dancer_version %>
+      Powered by <a href="http://perldancer.org/">Dancer</a> [% dancer_version %]
     </div>
   </body>
-  <% IF donut_flavours %>
-    <script src="<% request.uri_base %>/javascripts/donut_flavours.js"></script>
-  <% END %>
-  <% IF donut_bibrange %>
-    <script src="<% request.uri_base %>/javascripts/donut_bibrange.js"></script>
-  <% END %>
+  <script src="[% request.uri_base %]/javascripts/hea.js"></script>
+  [% IF donut_flavours %]
+    <script src="[% request.uri_base %]/javascripts/donut_flavours.js"></script>
+  [% END %]
+  [% IF donut_bibrange %]
+    <script src="[% request.uri_base %]/javascripts/donut_bibrange.js"></script>
+  [% END %]
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="<% request.uri_base %>/javascripts/bootstrap.min.js"></script>
+    <script src="[% request.uri_base %]/javascripts/bootstrap.min.js"></script>
 </html>
