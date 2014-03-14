@@ -1,0 +1,38 @@
+<div id="page">
+  <h1>System preferences</h1>
+ 
+  <div class="row">
+    <div class="col-md-12">
+      <form action="/systempreference" method="post">
+        <label for="preferencename">Choose a system preference</label>
+        <select id="preferencename" name="preferencename">
+          <option value="">--</option>
+          [% FOREACH name IN names %]
+            [% IF preferencename == name %]
+              <option value="[% name %]" selected="selected">[% name %]</option>
+            [% ELSE %]
+              <option value="[% name %]">[% name %]</option>
+            [% END %]
+          [% END %]
+        </select>
+        <input type="submit" value="View statistics" />
+      </form>
+    </div>
+  </div>
+  [% IF preferencename %]
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Statistics for system preference [% preferencename %]</h2>
+        <div id="systempreference-donut"></div>
+        <script>
+          $(document).ready(function() {
+            Hea.donutFromCsv({
+              wrapper_id: 'systempreference-donut',
+              csv_file: '../data/systempreference_[% preferencename %].csv'
+            });
+          });
+        </script>
+      </div>
+    </div>
+  [% END %]
+</div>

@@ -1,6 +1,7 @@
 package Hea::App;
 use Dancer ':syntax';
 use Hea::Data;
+use Hea::Systempreference;
 use Hea::Ajax;
 use Template;
 use JSON;
@@ -21,6 +22,25 @@ get '/' => sub {
 get '/ajax/libvolumetry' => sub {
     my $range = Hea::Ajax::bibVolumetryRange;
     return to_json($range);
+};
+
+get '/systempreference' => sub {
+    template 'systempreference' => {
+        names => Hea::Systempreference::getNames(),
+    };
+};
+
+post '/systempreference' => sub {
+    redirect '/systempreference/' . params->{preferencename};
+};
+
+get '/systempreference/:preferencename' => sub {
+    my $name = params->{preferencename};
+    Hea::Systempreference::writeCsv($name);
+    template 'systempreference' => {
+        names => Hea::Systempreference::getNames(),
+        preferencename => $name,
+    };
 };
 
 true;
