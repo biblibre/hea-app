@@ -11,8 +11,11 @@
 -->
 
 <div id="page">
-  <h1>Some numbers</h1>
-  <p>[% library_count %] libraries are sharing data</p>
+  <h1>Some numbers from the <% library_count %> libraries sharing data</h1>
+  <p>They have a total of <% biblio_sum %> biblios. The largest one is <% biblio_max %>, the smallest one is <% biblio_min %>. The average is <%biblio_avg %></p>
+  <p>They serve a total of <% borrowers_sum %> patrons. The largest one has <% borrowers_max %>, the smallest one has <% borrowers_min %>. The average has <%borrowers_avg %></p>
+  <p>They issued a total of <% issues_sum %> books. The largest issued <% issues_max %>, the smallest one issued <% issues_min %>. The average issued <%issues_avg %></p>
+
   <div class="row">
     <div class="col-md-6"><h1>Marc flavour repartition</h1></div>
     <div class="col-md-6"><h1>Biblios volumetry</h1></div>

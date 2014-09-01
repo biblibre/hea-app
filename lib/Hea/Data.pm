@@ -5,8 +5,17 @@ use Dancer::Plugin::Database;
 
 our $VERSION = '0.1';
 
+# retrieve the number of libraries declared
 sub getLibraryCount{
     database->quick_count('library', {});
+}
+
+# retrieves the sum of biblios in all libraries
+sub getKohaTableStats{
+    my $table = shift;
+    my $sth = database->prepare ("SELECT sum(value),AVG(value),MIN(value),MAX(value) FROM volumetry WHERE name=?");
+    $sth->execute($table);
+    return $sth->fetchrow;
 }
 
 sub getMarcFlavourRepartition{

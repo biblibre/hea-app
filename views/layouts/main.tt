@@ -46,9 +46,9 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Welcome</h1>
-        <p>This website intends to display koha community usage statistics. Data are collected from installed koha if librarian wants anonymously or not.</p>
-        <p><a href="#about" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+        <h1>Welcome to HEA</h1>
+        <p>This website display <a href="http://koha-community.org">koha ILS</a> usage statistics. Data are collected from installed koha if librarian want. They are stored anonymously or not, as the library choose.</p>
+        <p><a href="http://koha-community.org" class="btn btn-primary btn-lg" role="button">Learn more about Koha &raquo;</a></p>
       </div>
 
     [% content %]
