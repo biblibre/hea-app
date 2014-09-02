@@ -1,0 +1,31 @@
+# copy this configuration file into production.yml or development.yml
+# and replace REPLACE_ME occurrences
+
+logger: "file"
+warnings: 0
+show_errors: 0
+log: "warning"
+# cache route resolution for maximum performance
+route_cache: 1
+
+##development
+# logger: "console"
+# warnings: 1
+# show_errors: 1
+# log: "debug"
+
+
+plugins:
+    Database:
+        driver: 'mysql'
+        database: 'REPLACE_ME'
+        host: 'localhost'
+        port: 3306
+        username: 'REPLACE_ME'
+        password: 'REPLACE_ME'
+        connection_check_threshold: 100
+        dbi_params:
+            RaiseError: 1
+            AutoCommit: 1
+        on_connect_do: ["SET NAMES 'utf8'", "SET CHARACTER SET 'utf8'" ]
+        log_queries: 0
