@@ -1,0 +1,38 @@
+.chart {
+  background: #B9BEC0;
+  float: left;
+  margin: 1%;
+  width: 48%;
+}
+ 
+.chart rect {
+  stroke: white;
+  fill: steelblue;
+}
+ 
+.chart text {
+  fill: white;
+  font-weight: bold;  
+}
+ 
+.chart text.variable {
+  fill: #000;
+}
+ 
+.chart line {
+  stroke: #c1c1c1;
+}
+ 
+.chart .title {
+  /*fill: #FFF;*/
+  fill: black;
+  font-weight: bold;  
+}
+ 
+.chart rect {
+  stroke: none;
+}
+ 
+.chart rect:hover {
+  fill: #64707D;
+} 

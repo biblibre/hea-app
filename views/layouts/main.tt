@@ -5,6 +5,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=[% settings.charset %]" />
     <title>Hea::App</title>
     <link rel="stylesheet" href="[% request.uri_base %]/css/bootstrap.css" />
+    <link rel="stylesheet" href="[% request.uri_base %]/css/hea.css" />
 
 
     <script type="text/javascript">/* <![CDATA[ */
@@ -28,8 +29,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/systempreference">System preferences</a></li>
+            <li><a href="/systempreferences">System preferences</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -44,27 +44,70 @@
 
     <div class="container theme-showcase" role="main">
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-        <h1>Welcome to HEA</h1>
-        <p>This website display <a href="http://koha-community.org">koha ILS</a> usage statistics. Data are collected from installed koha if librarian want. They are stored anonymously or not, as the library choose.</p>
-        <p><a href="http://koha-community.org" class="btn btn-primary btn-lg" role="button">Learn more about Koha &raquo;</a></p>
-      </div>
-
     [% content %]
     <div id="footer">
       Powered by <a href="http://perldancer.org/">Dancer</a> [% dancer_version %]
     </div>
   </body>
   <script src="[% request.uri_base %]/javascripts/hea.js"></script>
-  [% IF donut_flavours %]
-    <script src="[% request.uri_base %]/javascripts/donut_flavours.js"></script>
-  [% END %]
-  [% IF donut_bibrange %]
-    <script src="[% request.uri_base %]/javascripts/donut_bibrange.js"></script>
-  [% END %]
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="[% request.uri_base %]/javascripts/bootstrap.min.js"></script>
+        <script>
+          $(document).ready(function() {
+            [% IF ( v == 'home' ) %]
+              build_svg({
+                wrapper_id: 'biblio_volumetry',
+                data: [% biblio_volumetry %],
+                title: "Biblio volumetry"
+              });
+              build_svg({
+                wrapper_id: 'authority_volumetry',
+                data: [% authority_volumetry %],
+                title: "Authority volumetry"
+              });
+              build_svg({
+                wrapper_id: 'item_volumetry',
+                data: [% item_volumetry %],
+                title: "Item volumetry"
+              });
+              build_svg({
+                wrapper_id: 'patron_volumetry',
+                data: [% patron_volumetry %],
+                title: "Patron volumetry"
+              });
+              build_svg({
+                wrapper_id: 'issue_volumetry',
+                data: [% issue_volumetry %],
+                title: "Issue volumetry"
+              });
+              build_svg({
+                wrapper_id: 'reserve_volumetry',
+                data: [% reserve_volumetry %],
+                title: "Reserve volumetry"
+              });
+              build_svg({
+                wrapper_id: 'order_volumetry',
+                data: [% order_volumetry %],
+                title: "Order volumetry"
+              });
+              build_svg({
+                wrapper_id: 'subscription_volumetry',
+                data: [% subscription_volumetry %],
+                title: "Suscription volumetry"
+              });
+            [% ELSIF ( v == 'systempreferences' ) %]
+              [% FOR pref IN systempreferences %]
+                build_svg({
+                  wrapper_id: 'pref_[% pref.syspref_name %]',
+                  data: [% pref.values %],
+                  title: "[% pref.syspref_name %]"
+                });
+              [% END %]
+            [% END %]
+
+          });
+        </script>
+
 </html>

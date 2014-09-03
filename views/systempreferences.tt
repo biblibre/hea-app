@@ -1,0 +1,10 @@
+<div class="jumbotron">
+  <h1>System preferences</h1>
+  <p>Below the list of the system preferences</p>
+</div>
+
+<div id="page">
+  <div id="charts"></div>
+  
+  <div style="clear: both"></div>
+</div>

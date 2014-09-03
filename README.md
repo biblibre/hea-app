@@ -34,17 +34,17 @@ This website intends to display koha community usage statistics. Data are collec
 | aqorders      |
 | subscription  |
 | auth_header   |
-| old_reservesi |
+| old_reserves  |
 | old_reserves  |
 +---------------+
 ```
 
- * System preferences recorded: marcflavour and IntranetBiblioDefaultView
+ * System preferences recorded: a lot, see the Koha code (or patches on the bug tracker)
 ```
 +------------+--------------+------+-----+---------+-------+
 | Field      | Type         | Null | Key | Default | Extra |
 +------------+--------------+------+-----+---------+-------+
-| library_id | int(11)      | NO   |     | NULL    |       |
+| library_id | varchar(32)  | NO   |     | NULL    |       |
 | name       | varchar(255) | NO   |     | NULL    |       |
 | value      | text         | YES  |     | NULL    |       |
 +------------+--------------+------+-----+---------+-------+
@@ -52,10 +52,10 @@ This website intends to display koha community usage statistics. Data are collec
 
  * Library table
 ```
-+------------+----------------------------+--------------------+--------------+---------+
-| library_id | name                       | url                | library_type | country |
-+------------+----------------------------+--------------------+--------------+---------+
-|          1 | hea experimental library   | http://example.com | UNIVERSITY   | France  |
-+------------+----------------------------+--------------------+--------------+---------+
++--------------------------+----------------------------+--------------------+--------------+---------+
+| library_id               | name                       | url                | library_type | country |
++--------------------------+----------------------------+--------------------+--------------+---------+
+| 'RcP73COKh93YWLmOLkLx5Q' | hea experimental library   | http://example.com | UNIVERSITY   | France  |
++--------------------------+----------------------------+--------------------+--------------+---------+
 ```
 

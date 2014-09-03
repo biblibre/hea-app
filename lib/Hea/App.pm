@@ -3,49 +3,62 @@ package Hea::App;
 use Modern::Perl;
 use Dancer ':syntax';
 use Hea::Data;
-use Hea::Systempreference;
-use Hea::Ajax;
 use Template;
-use JSON;
+use JSON qw( to_json );
 
 get '/' => sub {
     my $library_count = Hea::Data::getLibraryCount;
-    my ( $biblio_sum, $biblio_avg, $biblio_min, $biblio_max ) =
-      Hea::Data::getKohaTableStats('biblio');
-    Hea::Data::writeMarcFlavourCsv;
-    Hea::Data::writeBibRangeCsv;
+
+    my $biblio_stats = Hea::Data::volumetry_stats('biblio');
+    my $authority_stats = Hea::Data::volumetry_stats('auth_header');
+    my $item_stats = Hea::Data::volumetry_stats('items');
+    my $patron_stats = Hea::Data::volumetry_stats('borrowers');
+    my $issue_stats = Hea::Data::volumetry_stats('old_issues');
+    my $reserve_stats = Hea::Data::volumetry_stats('old_reserves');
+    my $order_stats = Hea::Data::volumetry_stats('aqorders');
+    my $subscription_stats = Hea::Data::volumetry_stats('subscription');
+
+    my $biblio_volumetry = to_json Hea::Data::volumetry_range('biblio');
+    my $authority_volumetry = to_json Hea::Data::volumetry_range('auth_header');
+    my $item_volumetry = to_json Hea::Data::volumetry_range('items');
+    my $patron_volumetry = to_json Hea::Data::volumetry_range('borrowers');
+    my $issue_volumetry = to_json Hea::Data::volumetry_range('old_issues');
+    my $reserve_volumetry = to_json Hea::Data::volumetry_range('old_reserves');
+    my $order_volumetry = to_json Hea::Data::volumetry_range('aqorders');
+    my $subscription_volumetry = to_json Hea::Data::volumetry_range('subscription');
+
     template 'index' => {
         library_count  => $library_count,
-        biblio_sum     => $biblio_sum,
-        biblio_avg     => $biblio_avg,
-        biblio_min     => $biblio_min,
-        biblio_max     => $biblio_max,
-        load_d3j       => 1,
-        donut_flavours => 1,
-        donut_bibrange => 1
+        biblio_stats   => $biblio_stats,
+        authority_stats   => $authority_stats,
+        item_stats   => $item_stats,
+        patron_stats   => $patron_stats,
+        issue_stats   => $issue_stats,
+        reserve_stats => $reserve_stats,
+        order_stats => $order_stats,
+        subscription_stats => $subscription_stats,
+        biblio_volumetry => $biblio_volumetry,
+        authority_volumetry => $authority_volumetry,
+        item_volumetry => $item_volumetry,
+        patron_volumetry => $patron_volumetry,
+        issue_volumetry => $issue_volumetry,
+        reserve_volumetry => $reserve_volumetry,
+        order_volumetry => $order_volumetry,
+        subscription_volumetry => $subscription_volumetry,
+        v => 'home',
     };
 };
 
-get '/ajax/libvolumetry' => sub {
-    my $range = Hea::Ajax::bibVolumetryRange;
-    return to_json($range);
-};
+get '/systempreferences' => sub {
+    my $systempreferences = Hea::Data::syspref_repartition;
+    my @prefs;
+    while ( my ( $pref_name, $values ) = each $systempreferences ) {
+        push @prefs, { syspref_name => $pref_name, values => to_json $values };
+    }
 
-get '/systempreference' => sub {
-    template 'systempreference' =>
-      { names => Hea::Systempreference::getNames(), };
-};
-
-post '/systempreference' => sub {
-    redirect '/systempreference/' . params->{preferencename};
-};
-
-get '/systempreference/:preferencename' => sub {
-    my $name = params->{preferencename};
-    Hea::Systempreference::writeCsv($name);
-    template 'systempreference' => {
-        names          => Hea::Systempreference::getNames(),
-        preferencename => $name,
+    template 'systempreferences' => {
+        systempreferences => \@prefs,
+        v => 'systempreferences',
     };
 };
 

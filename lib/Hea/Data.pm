@@ -4,9 +4,7 @@ use Modern::Perl;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
 
-our $VERSION = '0.1';
-
-our $appdir = $ENV{DANCER_APPDIR};
+our $VERSION = '0.2';
 
 # retrieve the number of libraries declared
 sub getLibraryCount {
@@ -14,90 +12,71 @@ sub getLibraryCount {
 }
 
 # retrieves the sum of biblios in all libraries
-sub getKohaTableStats {
-    my $table = shift;
+sub volumetry_stats {
+    my ( $type ) = @_;
+    return unless $type;
     my $sth   = database->prepare(q|
-        SELECT sum(value),AVG(value),MIN(value),MAX(value)
+        SELECT sum(value) as sum, AVG(value) as avg, MIN(value) as min, MAX(value) as max
         FROM volumetry
         WHERE name=?
     |);
-    $sth->execute($table);
-    return $sth->fetchrow;
+    $sth->execute($type);
+    return $sth->fetchrow_hashref;
 }
 
-sub getMarcFlavourRepartition {
-    return {
-        unimarc => database->quick_count(
-            'systempreference', { name => 'marcflavour', value => 'UNIMARC' }
-        ),
-        normarc => database->quick_count(
-            'systempreference', { name => 'marcflavour', value => 'NORMARC' }
-        ),
-        marc21 => database->quick_count(
-            'systempreference', { name => 'marcflavour', value => 'MARC21' }
-        ),
-    };
-}
-
-sub writeMarcFlavourCsv {
-    my $marcflavourrepartition = Hea::Data::getMarcFlavourRepartition;
-    open( my $fh, '>', $appdir . 'public/data/donut_flavours.csv' )
-      or die "Cannot open donut csv file ($!)";
-    print $fh "flavour,number\n";
-    foreach my $key ( keys %$marcflavourrepartition ) {
-        print $fh "$key,$marcflavourrepartition->{$key}\n";
+sub syspref_repartition {
+    my $sth = database->prepare(q|
+        SELECT name, value, count(*) as count
+        FROM systempreference
+        GROUP BY name, value
+    |);
+    $sth->execute;
+    my $data = $sth->fetchall_arrayref( {} );
+    my $pref_repartition;
+    for my $d ( @$data ) {
+        push @{$pref_repartition->{$d->{name}}}, { name => $d->{value}, value => $d->{count} };
     }
-    close $fh;
+    return $pref_repartition;
 }
 
-sub getBibVolumetryRange {
+sub volumetry_range {
+    my ( $type ) = @_;
+    return unless $type;
     my $sth = database->prepare(q|
         SELECT *
         FROM volumetry
         WHERE name = ?
     |);
-    $sth->execute('biblio');
+    $sth->execute($type);
     my $data = $sth->fetchall_arrayref( {} );
 
-    my $range = {
-        '0-15000'      => 0,
-        '15001-50000'  => 0,
-        '50001-150000' => 0,
-        '150001-'      => 0,
-    };
+    my $range;
+    if ( $type eq 'borrowers' ) {
+        $range = { 1 => 1500, 2 => 5000, 3 => 15000 };
+    } else {
+        $range = { 1 => 15000, 2 => 50000, 3 => 150000 };
+    }
+
+    my $vol;
     foreach my $entry (@$data) {
-        my $num = $entry->{value};
-        if ( $num <= 15000 ) {
-            $range->{'0-15000'}++;
-        }
-        if ( $num > 15000 && $num <= 50000 ) {
-            $range->{'15001-50000'}++;
-        }
-        if ( $num > 50000 && $num <= 150000 ) {
-            $range->{'50001-150000'}++;
-        }
-        if ( $num > 150000 ) {
-            $range->{'150001-...'}++;
+        my $num = $entry->{value} || 0;
+        if ( $num < $range->{1} ) {
+            $vol->{1}++;
+        } elsif ( $num > $range->{1} and $num <= $range->{2} ) {
+            $vol->{2}++;
+        } elsif ( $num > $range->{2} and $num <= $range->{3} ) {
+            $vol->{3}++;
+        } elsif ( $num > $range->{3} ) {
+            $vol->{4}++;
         }
     }
 
-    my $nodes;
-    foreach my $key ( keys %$range ) {
-        push @{$nodes}, { 'range' => $key, 'count' => $range->{$key} };
-    }
-
-    return $nodes;
-
-}
-
-sub writeBibRangeCsv {
-    my $bibVolumetryRange = Hea::Data::getBibVolumetryRange;
-    open my $fh, '>', $appdir . 'public/data/donut_bibrange.csv'
-      or die "Cannot open donut csv file ($!)";
-    print $fh "bibrange,number\n";
-    foreach my $d ( @{$bibVolumetryRange} ){
-        print $fh "$d->{range},$_->{count}\n";
-    } close $fh;
+    return [
+        {name => "0-$range->{1}", value => $vol->{1} || 0},
+        {name => "$range->{1}-$range->{2}", value => $vol->{2} || 0},
+        {name => "$range->{2}-$range->{3}", value => $vol->{3} || 0},
+        {name => "$range->{3}+", value => $vol->{4} || 0},
+    ];
 }
 
 1;

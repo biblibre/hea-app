@@ -1,15 +1,19 @@
+      <div class="jumbotron">
+        <h1>Welcome to HEA</h1>
+        <p>This website display <a href="http://koha-community.org">koha ILS</a> usage statistics. Data are collected from installed koha if librarian want. They are stored anonymously or not, as the library choose.</p>
+        <p><a href="http://koha-community.org" class="btn btn-primary btn-lg" role="button">Learn more about Koha &raquo;</a></p>
+      </div>
+
+
 <div id="page">
   <h1>Some numbers from the [% library_count %] libraries sharing data</h1>
-  <p>They have a total of [% biblio_sum %] biblios. The largest one is [% biblio_max %], the smallest one is [% biblio_min %]. The average is [% biblio_avg %]</p>
-  <p>They serve a total of [% borrowers_sum %] patrons. The largest one has [% borrowers_max %], the smallest one has [% borrowers_min %]. The average has [% borrowers_avg %]</p>
-  <p>They issued a total of [% issues_sum %] books. The largest issued [% issues_max %], the smallest one issued [% issues_min %]. The average issued [% issues_avg %]</p>
+  <p>They have a total of [% biblio_stats.sum %] biblios. The largest one is [% biblio_stats.max %], the smallest one is [% biblio_stats.min %]. The average is [% biblio_stats.avg %]</p>
+  <p>They have a total of [% authority_stats.sum %] authorities. The largest one is [% authority_stats.max %], the smallest one is [% authority_stats.min %]. The average is [% authority_stats.avg %]</p>
+  <p>They have a total of [% item_stats.sum %] items. The largest one is [% item_stats.max %], the smallest one is [% item_stats.min %]. The average is [% item_stats.avg %]</p>
+  <p>They serve a total of [% patron_stats.sum %] patrons. The largest one has [% patron_stats.max %], the smallest one has [% patron_stats.min %]. The average has [% patron_stats.avg %]</p>
+  <p>They issue a total of [% issue_stats.sum %] books. The largest one has [% issue_stats.max %], the smallest one has [% issue_stats.min %]. The average is [% issue_stats.avg %]</p>
 
-  <div class="row">
-    <div class="col-md-6"><h1>Marc flavour repartition</h1></div>
-    <div class="col-md-6"><h1>Biblios volumetry</h1></div>
-  </div>
-  <div class="row">
-    <div class="col-md-6" id="donut_flavours"></div>
-    <div class="col-md-6" id="donut_bibrange"></div>
-  </div>
+  <div id="charts"></div>
+  
+  <div style="clear: both"></div>
 </div>
