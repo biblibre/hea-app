@@ -60,42 +60,42 @@
               build_svg({
                 wrapper_id: 'biblio_volumetry',
                 data: [% biblio_volumetry %],
-                title: "Biblio volumetry"
+                title: "Number of biblios"
               });
               build_svg({
                 wrapper_id: 'authority_volumetry',
                 data: [% authority_volumetry %],
-                title: "Authority volumetry"
+                title: "Number of authorities"
               });
               build_svg({
                 wrapper_id: 'item_volumetry',
                 data: [% item_volumetry %],
-                title: "Item volumetry"
+                title: "Number of items"
               });
               build_svg({
                 wrapper_id: 'patron_volumetry',
                 data: [% patron_volumetry %],
-                title: "Patron volumetry"
+                title: "Number of patrons"
               });
               build_svg({
                 wrapper_id: 'issue_volumetry',
                 data: [% issue_volumetry %],
-                title: "Issue volumetry"
+                title: "Number of issues"
               });
               build_svg({
                 wrapper_id: 'reserve_volumetry',
                 data: [% reserve_volumetry %],
-                title: "Reserve volumetry"
+                title: "Number of reserves"
               });
               build_svg({
                 wrapper_id: 'order_volumetry',
                 data: [% order_volumetry %],
-                title: "Order volumetry"
+                title: "Number of orders"
               });
               build_svg({
                 wrapper_id: 'subscription_volumetry',
                 data: [% subscription_volumetry %],
-                title: "Suscription volumetry"
+                title: "Number of subscriptions"
               });
             [% ELSIF ( v == 'systempreferences' ) %]
               [% FOR pref IN systempreferences %]
