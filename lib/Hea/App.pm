@@ -5,8 +5,10 @@ use Dancer ':syntax';
 use Hea::Data;
 use Template;
 use JSON qw( to_json );
+use I18N::LangTags::Detect;
 
 get '/' => sub {
+    my @languages = I18N::LangTags::Detect::detect();
     my $library_count = Hea::Data::getLibraryCount;
 
     my $biblio_stats = Hea::Data::volumetry_stats('biblio');
@@ -46,6 +48,7 @@ get '/' => sub {
         order_volumetry => $order_volumetry,
         subscription_volumetry => $subscription_volumetry,
         v => 'home',
+        languages => \@languages,
     };
 };
 
