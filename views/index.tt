@@ -6,7 +6,7 @@
   [% END %]      
 
   <div class="jumbotron">
-    <h1>Welcome to HEA</h1>
+    <h1>Welcome to Hea</h1>
     <p>This website displays <a href="http://koha-community.org">Koha ILS</a> usage statistics. With permission from the libraries, the following data has been collected from their installed systems. Any information not stored anonymously has been allowed by the library.</p>
     <p><a href="http://koha-community.org" class="btn btn-primary btn-lg" role="button">Learn more about Koha &raquo;</a></p>
   </div>
