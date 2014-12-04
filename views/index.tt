@@ -1,17 +1,24 @@
-      <div class="jumbotron">
-        <h1>Welcome to HEA</h1>
-        <p>This website displays <a href="http://koha-community.org">Koha ILS</a> usage statistics. With permission from the libraries, the following data has been collected from their installed systems. Any information not stored anonymously has been allowed by the library.</p>
-        <p><a href="http://koha-community.org" class="btn btn-primary btn-lg" role="button">Learn more about Koha &raquo;</a></p>
-      </div>
 
+  [% IF (matches = languages.0.match('^en')) %]
+    [% USE Number.Format() %]
+  [% ELSE %]
+    [% USE Number.Format(thousands_sep => '.', decimal_point => ',') %]
+  [% END %]      
+
+  <div class="jumbotron">
+    <h1>Welcome to HEA</h1>
+    <p>This website displays <a href="http://koha-community.org">Koha ILS</a> usage statistics. With permission from the libraries, the following data has been collected from their installed systems. Any information not stored anonymously has been allowed by the library.</p>
+    <p><a href="http://koha-community.org" class="btn btn-primary btn-lg" role="button">Learn more about Koha &raquo;</a></p>
+  </div>
 
 <div id="page">
+
   <h1>Some numbers from the [% library_count %] libraries sharing data</h1>
-  <p>In total, the [% library_count %] libraries have [% biblio_stats.sum  %] biblios. The library with the highest amount of biblios has [% biblio_stats.max %], and the library with the lowest number has [% biblio_stats.min %]. The average is [% biblio_stats.avg %]</p>
-  <p>They have a total of [% authority_stats.sum %] authorities. The largest number of authorities is [% authority_stats.max %], the smallest number is [% authority_stats.min %]. The average is [% authority_stats.avg %]</p>
-  <p>They have a total of [% item_stats.sum %] items. The highest amount of items is [% item_stats.max %], the lowest amount is [% item_stats.min %]. The average is [% item_stats.avg %]</p>
-  <p>They serve a total of [% patron_stats.sum %] patrons. The highest number of patrons served is [% patron_stats.max %], the lowest number is [% patron_stats.min %]. The average is [% patron_stats.avg %]</p>
-  <p>They issue a total of [% issue_stats.sum %] books. The largest amount of books issued is [% issue_stats.max %], the smallest amount is [% issue_stats.min %]. The average is [% issue_stats.avg %]</p>
+  <p>In total, the [% library_count %] libraries have [% biblio_stats.sum | format_number %] biblios. The library with the highest amount of biblios has [% biblio_stats.max | format_number %], and the library with the lowest number has [% biblio_stats.min | format_number %]. The average is [% biblio_stats.avg | format_number %].</p>
+  <p>They have a total of [% authority_stats.sum | format_number %] authorities. The largest number of authorities is [% authority_stats.max | format_number %], the smallest number is [% authority_stats.min | format_number %]. The average is [% authority_stats.avg | format_number %].</p>
+  <p>They have a total of [% item_stats.sum | format_number %] items. The highest amount of items is [% item_stats.max | format_number %], the lowest amount is [% item_stats.min | format_number %]. The average is [% item_stats.avg | format_number %].</p>
+  <p>They serve a total of [% patron_stats.sum | format_number %] patrons. The highest number of patrons served is [% patron_stats.max | format_number %], the lowest number is [% patron_stats.min | format_number %]. The average is [% patron_stats.avg | format_number %].</p>
+  <p>They issue a total of [% issue_stats.sum | format_number %] books. The largest amount of books issued is [% issue_stats.max | format_number %], the smallest amount is [% issue_stats.min | format_number %]. The average is [% issue_stats.avg | format_number %].</p>
 
   <div id="charts"></div>
   
