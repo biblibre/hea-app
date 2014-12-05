@@ -17,17 +17,16 @@ function build_barchart (params) {
   var bar_padding = 1;
   var bar_height = 20;
 
-
   var max_variable_name_length = 20;
   var values = [], variables = [];
   $(data).each(function(){
-    values.push(this.value);
+    values.push(Number(this.value));
     variables.push(this.name);
   });
 
   var height = bar_height * variables.length;
 
-  var left_width = 150;
+  var left_width = 135;
 
   var yRangeBand = bar_height + 2;
   y = function(i) { return yRangeBand * i; };
@@ -132,3 +131,4 @@ function build_donut (params) {
       .text(function(d) { return d.data.name + " (" + d.data.value + ")"; });
 
 }
+
