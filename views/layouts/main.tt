@@ -3,10 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=[% settings.charset %]" />
-    <title>Hea::App</title>
+    <title>Koha Community Statistics</title>
     <link rel="stylesheet" href="[% request.uri_base %]/css/bootstrap.css" />
     <link rel="stylesheet" href="[% request.uri_base %]/css/hea.css" />
-
 
     <script type="text/javascript">/* <![CDATA[ */
     !window.jQuery && document.write('<script type="text/javascript" src="[% request.uri_base %]/javascripts/jquery.js"><\/script>')
@@ -35,6 +34,7 @@
               <ul class="dropdown-menu">
                 <li><a href="https://github.com/biblibre/hea-app">Source code</a></li>
                 <li><a href="http://wiki.koha-community.org/w/index.php?title=KohaUsageStat_RFC">Documentation</a></li>
+		<li><a href="http://www.maoridictionary.co.nz/word/1006">What Hea means</a></li>
               </ul>
             </li>
           </ul>
@@ -48,6 +48,7 @@
     <div id="footer">
       Powered by <a href="http://perldancer.org/">Dancer</a> [% dancer_version %]
     </div>
+
   </body>
   <script src="[% request.uri_base %]/javascripts/hea.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -60,42 +61,47 @@
               build_svg({
                 wrapper_id: 'biblio_volumetry',
                 data: [% biblio_volumetry %],
-                title: "Number of biblios"
+                title: "Bibliographic record",
+		caption: "Total: [% biblio_stats.sum | format_number %]. Average: [% biblio_stats.avg | format_number %]. Minimum: [% biblio_stats.min | format_number %]. Maximum: [% biblio_stats.max | format_number %]"
               });
               build_svg({
                 wrapper_id: 'authority_volumetry',
                 data: [% authority_volumetry %],
-                title: "Number of authorities"
+                title: "Number of authorities",
+		caption: "Total: [% authority_stats.sum | format_number %]. Average: [% authority_stats.avg | format_number %]. Minimum: [% authority_stats.min | format_number %]. Maximum: [% authority_stats.max | format_number %]"
               });
               build_svg({
                 wrapper_id: 'item_volumetry',
                 data: [% item_volumetry %],
-                title: "Number of items"
+                title: "Total items",
+		caption: "Total: [% item_stats.sum | format_number %]. Average: [% item_stats.avg | format_number %]. Minimum: [% item_stats.min | format_number %]. Maximum: [% item_stats.max | format_number %]"
               });
               build_svg({
                 wrapper_id: 'patron_volumetry',
                 data: [% patron_volumetry %],
-                title: "Number of patrons"
+                title: "Number of patrons",
+		caption: "Total: [% patron_stats.sum | format_number %]. Average: [% patron_stats.avg | format_number %]. Minimum: [% patron_stats.min | format_number %]. Maximum: [% patron_stats.max | format_number %]"
               });
               build_svg({
                 wrapper_id: 'issue_volumetry',
                 data: [% issue_volumetry %],
-                title: "Number of issues"
+                title: "Total issues",
+		caption: "Total: [% issue_stats.sum | format_number %]. Average: [% issue_stats.avg | format_number %]. Minimum: [% issue_stats.min | format_number %]. Maximum: [% issue_stats.max | format_number %]"
               });
               build_svg({
                 wrapper_id: 'reserve_volumetry',
                 data: [% reserve_volumetry %],
-                title: "Number of reserves"
+                title: "Total reserves"
               });
               build_svg({
                 wrapper_id: 'order_volumetry',
                 data: [% order_volumetry %],
-                title: "Number of orders"
+                title: "Total orders"
               });
               build_svg({
                 wrapper_id: 'subscription_volumetry',
                 data: [% subscription_volumetry %],
-                title: "Number of subscriptions"
+                title: "Total subscriptions"
               });
             [% ELSIF ( v == 'systempreferences' ) %]
               [% FOR pref IN systempreferences %]
@@ -107,7 +113,8 @@
               [% END %]
             [% END %]
 
-          });
+           });
+
         </script>
 
 </html>
