@@ -52,9 +52,9 @@ sub volumetry_range {
 
     my $range;
     if ( $type eq 'borrowers' || $type eq 'subscription' || $type eq 'aqorders' || $type eq 'old_reserves' ) {
-         $range = { 1 => 1500, 2 => 5000, 3 => 15000 };
+       $range = { 1 => 1500, 2 => 5000, 3 => 15000 };
     } else {
-        $range = { 1 => 15000, 2 => 50000, 3 => 150000 };
+       $range = { 1 => 15000, 2 => 50000, 3 => 150000 };
     }
 
     my $vol;
