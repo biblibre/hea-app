@@ -28,6 +28,8 @@ get '/' => sub {
     my $reserve_volumetry      = to_json Hea::Data::volumetry_range('old_reserves');
     my $order_volumetry        = to_json Hea::Data::volumetry_range('aqorders');
     my $subscription_volumetry = to_json Hea::Data::volumetry_range('subscription');
+    my $country_volumetry      = to_json Hea::Data::range('country');
+    my $type_volumetry         = to_json Hea::Data::range('library_type');
 
     template 'index' => {
         library_count          => $library_count,
@@ -47,6 +49,8 @@ get '/' => sub {
         reserve_volumetry      => $reserve_volumetry,
         order_volumetry        => $order_volumetry,
         subscription_volumetry => $subscription_volumetry,
+        country_volumetry      => $country_volumetry,
+        type_volumetry         => $type_volumetry,
         v                      => 'home',
         languages              => \@languages,
     };
