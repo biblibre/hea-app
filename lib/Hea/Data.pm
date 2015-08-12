@@ -79,4 +79,40 @@ sub volumetry_range {
     ];
 }
 
+sub range {
+    my ( $type ) = @_;
+    return unless $type;
+
+    my $query;
+    if ($type eq 'country'){
+        $query =
+            'SELECT country
+             FROM library';
+    }
+    elsif ($type eq 'library_type'){
+        $query =
+            'SELECT library_type
+             FROM library';
+    }
+    my $sth = database->prepare($query);
+    $sth->execute();
+    my $data = $sth->fetchall_arrayref( {} );
+
+    my $vol;
+    foreach my $entry (@$data) {
+        my $element = $entry->{$type} || 0;
+        $vol->{$element}++;
+    }
+
+    my $range;
+    my $i = 0;
+    foreach my $k (keys $vol){
+        $range->[$i]->{name} = $k;
+        $range->[$i]->{value} = $vol->{$k};
+        $i++;
+    }
+
+    return $range;
+}
+
 1;
