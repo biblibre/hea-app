@@ -56,6 +56,15 @@ get '/' => sub {
     };
 };
 
+get '/libraries' => sub {
+    my $libs = Hea::Data::libraries_name_and_url();
+
+    template 'libraries' => {
+        libraries => $libs,
+        v => 'libraries',
+    };
+};
+
 get '/systempreferences' => sub {
     my $systempreferences = Hea::Data::syspref_repartition;
     my @prefs;

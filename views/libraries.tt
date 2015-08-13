@@ -1,0 +1,22 @@
+<div class="jumbotron">
+  <h1>Libraries</h1>
+  <p>Below is the list of libraries that have shared their names and url </p>
+</div>
+
+<div id="page">
+    <table id="lib_name_url">
+      <tr>
+        <td> Name </td>
+        <td> URL </td>
+      </tr>
+    [% FOR lib IN libraries %]
+      <tr>
+        <td> [% lib.name %] </td>
+        <td> [% lib.url %] </td>
+      </tr>
+    [% END %]
+    </table>
+
+  <div id="charts"></div>
+  <div style="clear: both"></div>
+</div>
