@@ -119,7 +119,7 @@ sub libraries_name_and_url {
     my $query = '
             SELECT name, url
             FROM library
-            WHERE name <> \'\' and url <> \'\'
+            WHERE name <> \'\' OR url <> \'\'
     ';
     my $sth = database->prepare($query);
     $sth->execute();
