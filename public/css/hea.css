@@ -36,3 +36,23 @@
 .chart rect:hover {
   fill: #64707D;
 } 
+
+table#lib_name_url {
+  margin: 25px;
+  font-family: Nimbus Sans L, arial, monospace;
+  color: black;
+  font-size: 16px;
+}
+
+table#lib_name_url tr {
+  border-bottom: 1px solid black;
+}
+
+table#lib_name_url tr:nth-child(even) {
+  border-bottom: 1px solid black;
+  background-color: #EEE;
+}
+
+table#lib_name_url td {
+  padding: 10px 20px 10px 20px ;
+}

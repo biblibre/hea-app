@@ -115,4 +115,16 @@ sub range {
     return $range;
 }
 
+sub libraries_name_and_url {
+    my $query = '
+            SELECT name, url
+            FROM library
+            WHERE name <> \'\' and url <> \'\'
+    ';
+    my $sth = database->prepare($query);
+    $sth->execute();
+
+    return $sth->fetchall_arrayref( {} );;
+}
+
 1;
