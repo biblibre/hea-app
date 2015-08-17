@@ -8,6 +8,19 @@ This website intends to display koha community usage statistics. Data are collec
  * http://wiki.koha-community.org/w/index.php?title=KohaUsageStat_RFC
  * https://github.com/jajm/hea-ws
 
+## Install Hea locally
+
+ * git clone https://github.com/biblibre/hea-app.git
+ * git clone https://github.com/biblibre/hea-ws.git
+
+ * Create a database whith the schema in hea-app/sql/schema.sql
+ * Optional : Import mock data (hea-app/sql/mock-data.sql)
+
+ * copy hea-app/environments/config.yml to hea-app/environments/production.yml
+ * In this production.yml file, replace all REPLACE_ME with the name of the database created above and a user/password
+
+ If it's not working, don't forget to see in hea-app/logs/production.log which Libraries are missing, and install them.
+
 ## Install perl libraries
 
 * Libraries used: Dancer,  Dancer::Plugin::Database, Template
