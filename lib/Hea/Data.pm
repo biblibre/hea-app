@@ -79,4 +79,54 @@ sub volumetry_range {
     ];
 }
 
+sub range {
+    my ( $type ) = @_;
+    return unless $type;
+
+    my $query;
+    if ($type eq 'country'){
+        $query =
+            'SELECT country
+             FROM library
+             ORDER BY country';
+    }
+    elsif ($type eq 'library_type'){
+        $query =
+            'SELECT library_type
+             FROM library';
+    }
+    my $sth = database->prepare($query);
+    $sth->execute();
+    my $data = $sth->fetchall_arrayref( {} );
+
+    my $vol;
+    foreach my $entry (@$data) {
+        my $element = $entry->{$type} || 0;
+        $vol->{$element}++;
+    }
+
+    my $range;
+    foreach my $k (sort keys $vol){
+        push @$range, {
+            name => $k,
+            value => $vol->{$k}
+        }
+    }
+
+    return $range;
+}
+
+sub libraries_name_and_url {
+    my $query = q|
+            SELECT name, url
+            FROM library
+            WHERE name <> '' OR url <> ''
+    |;
+    my $sth = database->prepare($query);
+    $sth->execute();
+    my $data = $sth->fetchall_arrayref( {} );
+
+    return $data;
+}
+
 1;
