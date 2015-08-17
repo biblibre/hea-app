@@ -87,7 +87,8 @@ sub range {
     if ($type eq 'country'){
         $query =
             'SELECT country
-             FROM library';
+             FROM library
+             ORDER BY country';
     }
     elsif ($type eq 'library_type'){
         $query =
@@ -105,26 +106,27 @@ sub range {
     }
 
     my $range;
-    my $i = 0;
-    foreach my $k (keys $vol){
-        $range->[$i]->{name} = $k;
-        $range->[$i]->{value} = $vol->{$k};
-        $i++;
+    foreach my $k (sort keys $vol){
+        push @$range, {
+            name => $k,
+            value => $vol->{$k}
+        }
     }
 
     return $range;
 }
 
 sub libraries_name_and_url {
-    my $query = '
+    my $query = q|
             SELECT name, url
             FROM library
-            WHERE name <> \'\' OR url <> \'\'
-    ';
+            WHERE name <> '' OR url <> ''
+    |;
     my $sth = database->prepare($query);
     $sth->execute();
+    my $data = $sth->fetchall_arrayref( {} );
 
-    return $sth->fetchall_arrayref( {} );;
+    return $data;
 }
 
 1;
