@@ -79,41 +79,21 @@ sub volumetry_range {
     ];
 }
 
-sub range {
+sub library_stats {
     my ( $type ) = @_;
     return unless $type;
 
-    my $query;
-    if ($type eq 'country'){
-        $query =
-            'SELECT country
-             FROM library
-             ORDER BY country';
-    }
-    elsif ($type eq 'library_type'){
-        $query =
-            'SELECT library_type
-             FROM library';
-    }
+    my $query = "
+        SELECT $type as name, COUNT(*) AS value
+        FROM library
+        GROUP BY $type
+    ";
+
     my $sth = database->prepare($query);
     $sth->execute();
     my $data = $sth->fetchall_arrayref( {} );
 
-    my $vol;
-    foreach my $entry (@$data) {
-        my $element = $entry->{$type} || 0;
-        $vol->{$element}++;
-    }
-
-    my $range;
-    foreach my $k (sort keys $vol){
-        push @$range, {
-            name => $k,
-            value => $vol->{$k}
-        }
-    }
-
-    return $range;
+    return $data;
 }
 
 sub libraries_name_and_url {

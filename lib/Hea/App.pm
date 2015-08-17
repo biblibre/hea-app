@@ -28,8 +28,8 @@ get '/' => sub {
     my $reserve_volumetry      = to_json Hea::Data::volumetry_range('old_reserves');
     my $order_volumetry        = to_json Hea::Data::volumetry_range('aqorders');
     my $subscription_volumetry = to_json Hea::Data::volumetry_range('subscription');
-    my $country_volumetry      = to_json Hea::Data::range('country');
-    my $type_volumetry         = to_json Hea::Data::range('library_type');
+    my $country_volumetry      = to_json Hea::Data::library_stats('country');
+    my $type_volumetry         = to_json Hea::Data::library_stats('library_type');
 
     template 'index' => {
         library_count          => $library_count,
