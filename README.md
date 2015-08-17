@@ -13,11 +13,11 @@ This website intends to display koha community usage statistics. Data are collec
  * git clone https://github.com/biblibre/hea-app.git
  * git clone https://github.com/biblibre/hea-ws.git
 
- * Create a database whith the schema in hea-ap/sql/schema.sql
- * Optionnal : Import mock data (hea-app/sql/mock-data.sql)
+ * Create a database whith the schema in hea-app/sql/schema.sql
+ * Optional : Import mock data (hea-app/sql/mock-data.sql)
 
  * copy hea-app/environments/config.yml to hea-app/environments/production.yml
- * In this production.ylm file, replace all REPLACE_ME with the name of the database created above and a user/password
+ * In this production.yml file, replace all REPLACE_ME with the name of the database created above and a user/password
 
  If it's not working, don't forget to see in hea-app/logs/production.log which Libraries are missing, and install them.
 
