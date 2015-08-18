@@ -79,4 +79,33 @@ sub volumetry_range {
     ];
 }
 
+sub library_stats {
+    my ( $type ) = @_;
+    return unless $type;
+
+    my $query = "
+        SELECT $type as name, COUNT(*) AS value
+        FROM library
+        GROUP BY $type
+    ";
+
+    my $sth = database->prepare($query);
+    $sth->execute();
+    my $data = $sth->fetchall_arrayref( {} );
+
+    return $data;
+}
+
+sub libraries_name_and_url {
+    my $query = q|
+            SELECT name, url
+            FROM library
+            WHERE name <> '' OR url <> ''
+    |;
+    my $sth = database->prepare($query);
+    $sth->execute();
+
+    return $sth->fetchall_arrayref( {} );
+}
+
 1;
