@@ -40,7 +40,7 @@ function build_barchart (params) {
     .append('svg')
     .attr('class', 'chart')
     .attr('width', left_width + width + 40)
-    .attr('height', (bar_height) * variables.length + 30)
+    .attr('height', (yRangeBand) * variables.length + 30)
     .append("g")
     .attr("transform", "translate(-10, 20)");
  
