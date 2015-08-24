@@ -86,6 +86,7 @@ sub library_stats {
     my $query = "
         SELECT $type as name, COUNT(*) AS value
         FROM library
+        WHERE $type <> ''
         GROUP BY $type
     ";
 
