@@ -29,6 +29,13 @@ This website intends to display koha community usage statistics. Data are collec
   root # curl -L http://cpanmin.us | perl - --sudo <lib_name>
 ```
 
+## Launch the app
+
+```
+hea-app$ ./bin/app.pl 
+```
+
+
 ## Database and sample data
 
  1. Some mocks data are available in sql/mock-data.sql
