@@ -1,8 +1,8 @@
 
   [% IF (matches = languages.0.match('^en')) %]
-    [% USE Number.Format() %]
+    [% USE Number.Format(decimal_digits => 0) %]
   [% ELSE %]
-    [% USE Number.Format(thousands_sep => '.', decimal_point => ',') %]
+    [% USE Number.Format(thousands_sep => '.', decimal_point => ',', decimal_digits => 0) %]
   [% END %]      
 
   <div class="jumbotron">
@@ -13,12 +13,65 @@
 
 <div id="page">
 
-  <h1>Some numbers from the [% library_count %] libraries sharing data</h1>
-  <p>In total, the [% library_count %] libraries have [% biblio_stats.sum | format_number %] biblios. The library with the highest amount of biblios has [% biblio_stats.max | format_number %], and the library with the lowest number has [% biblio_stats.min | format_number %]. The average is [% biblio_stats.avg | format_number %].</p>
-  <p>They have a total of [% authority_stats.sum | format_number %] authorities. The largest number of authorities is [% authority_stats.max | format_number %], the smallest number is [% authority_stats.min | format_number %]. The average is [% authority_stats.avg | format_number %].</p>
-  <p>They have a total of [% item_stats.sum | format_number %] items. The highest amount of items is [% item_stats.max | format_number %], the lowest amount is [% item_stats.min | format_number %]. The average is [% item_stats.avg | format_number %].</p>
-  <p>They serve a total of [% patron_stats.sum | format_number %] patrons. The highest number of patrons served is [% patron_stats.max | format_number %], the lowest number is [% patron_stats.min | format_number %]. The average is [% patron_stats.avg | format_number %].</p>
-  <p>They issue a total of [% issue_stats.sum | format_number %] books. The largest amount of books issued is [% issue_stats.max | format_number %], the smallest amount is [% issue_stats.min | format_number %]. The average is [% issue_stats.avg | format_number %].</p>
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Some numbers from the [% library_count %] libraries sharing data</div>
+    <!-- Table -->
+    <table class="table table-bordered" id="value">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Total</th>
+          <th>Largest</th>
+          <th>Standard deviation</th>
+          <th>Average</th>
+          <th>Median</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Biblios</th>
+          <td>[% biblio_stats.sum | format_number %]</td>
+          <td>[% biblio_stats.max | format_number %]</td>
+          <td>[% biblio_stats.std | format_number %]</td>
+          <td>[% biblio_stats.avg | format_number %]</td>
+          <td>[% biblio_stats.med | format_number %]</td>
+        </tr>
+        <tr>
+          <th scope="row">Authorities</th>
+          <td>[% authority_stats.sum | format_number %]</td>
+          <td>[% authority_stats.max | format_number %]</td>
+          <td>[% authority_stats.std | format_number %]</td>
+          <td>[% authority_stats.avg | format_number %]</td>
+          <td>[% authority_stats.med | format_number %]</td>
+        </tr>
+        <tr>
+          <th scope="row">Items</th>
+          <td>[% item_stats.sum | format_number %]</td>
+          <td>[% item_stats.max | format_number %]</td>
+          <td>[% item_stats.std | format_number %]</td>
+          <td>[% item_stats.avg | format_number %]</td>
+          <td>[% item_stats.med | format_number %]</td>
+        </tr>
+        <tr>
+          <th scope="row">Patrons</th>
+          <td>[% patron_stats.sum | format_number %]</td>
+          <td>[% patron_stats.max | format_number %]</td>
+          <td>[% patron_stats.std | format_number %]</td>
+          <td>[% patron_stats.avg | format_number %]</td>
+          <td>[% patron_stats.med | format_number %]</td>
+        </tr>
+        <tr>
+          <th scope="row">Issues</th>
+          <td>[% issue_stats.sum | format_number %]</td>
+          <td>[% issue_stats.max | format_number %]</td>
+          <td>[% issue_stats.std | format_number %]</td>
+          <td>[% issue_stats.avg | format_number %]</td>
+          <td>[% issue_stats.med | format_number %]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div id="charts"></div>
   
