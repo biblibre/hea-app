@@ -23,7 +23,7 @@ This website intends to display koha community usage statistics. Data are collec
 
 ## Install perl libraries
 
-* Libraries used: Dancer,  Dancer::Plugin::Database, Template, Template::Plugin::Number::Format
+* Libraries used: Dancer,  Dancer::Plugin::Database, Template, Template::Plugin::Number::Format, Data::Entropy
 ```
   # one installation way
   root # curl -L http://cpanmin.us | perl - --sudo <lib_name>
