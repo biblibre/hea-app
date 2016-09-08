@@ -102,6 +102,7 @@ sub libraries_name_and_url {
             SELECT name, url
             FROM library
             WHERE name <> '' OR url <> ''
+            ORDER by name
     |;
     my $sth = database->prepare($query);
     $sth->execute();
