@@ -10,7 +10,7 @@ We use your Personal Information for providing and improving the Service. By usi
 While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you.
 All information sent by Koha to Hea is optional, and you can choose to have this information anonymised.
 This information is used by the community to learn more about who is using Koha.
-We collect information about which system preferences you have enabled so that if we are deciding to change or deprecate a feature we have some idea how many users this will impact.
+For example we collect information about which system preferences you have enabled so that if we are deciding to change or deprecate a feature we have some idea how many users this will impact.
 
 ##Data Storage
 The data collected by Hea is stored in a relational database. We store a library_id that is assigned by Hea.
@@ -25,7 +25,7 @@ And Country.
 Hea also receives and stores the values of some systempreferences, none which contain personal information such as
 usernames, emails, passwords etc.
 Hea also receives data about the biblio, borrowers, old_issues, aqorders, subscription, auth_header
-and old_reserves. But the Hea cron job that runs as part of Koha only sends the count of the rows of those tables, never
+and old_reserves. However the Hea cron job that runs as part of Koha only sends the count of the rows of those tables, never
 the data in them.
 
 ##Log Data
@@ -38,5 +38,6 @@ The security of your Personal Information is important to us, but remember that 
 ##Changes To This Privacy Policy
 We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
 You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
-Contact Us
-If you have any questions about this Privacy Policy, please contact us.
+
+###Contact Us
+If you have any questions about this Privacy Policy, please contact us by sending an email to the Koha mailing list https://koha-community.org/support/koha-mailing-lists/
