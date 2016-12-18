@@ -24,6 +24,7 @@ And Country.
 
 Hea also receives and stores the values of some systempreferences, none which contain personal information such as
 usernames, emails, passwords etc.
+The list of system preferences can be found at https://github.com/Koha-Community/Koha/blob/master/C4/UsageStats.pm#L77
 Hea also receives data about the biblio, borrowers, old_issues, aqorders, subscription, auth_header
 and old_reserves. But the Hea cron job that runs as part of Koha only sends the count of the rows of those tables, never
 the data in them.
