@@ -3,6 +3,9 @@ hea-app
 
 This website intends to display koha community usage statistics. Data are collected from installed koha if librarian wants anonymously or not.
 
+Data collected is available under the CC-BY-SA 4.0 License
+
+
 ## External references
 
  * http://wiki.koha-community.org/w/index.php?title=KohaUsageStat_RFC
