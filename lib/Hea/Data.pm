@@ -3,6 +3,7 @@ package Hea::Data;
 use Modern::Perl;
 use Dancer ':syntax';
 use Dancer::Plugin::Database;
+use Data::Dumper;
 
 our $VERSION = '0.2';
 
@@ -16,12 +17,39 @@ sub volumetry_stats {
     my ( $type ) = @_;
     return unless $type;
     my $sth   = database->prepare(q|
-        SELECT sum(value) as sum, AVG(value) as avg, MIN(value) as min, MAX(value) as max
+        SELECT sum(value) as sum, AVG(value) as avg, MAX(value) as max, stddev_pop(value) as std
         FROM volumetry
         WHERE name=?
     |);
     $sth->execute($type);
-    return $sth->fetchrow_hashref;
+    my $tmp = $sth->fetchrow_hashref;
+    $tmp->{med}=volumetry_median($type);
+    return $tmp;
+}
+
+sub volumetry_median {
+    my ( $type ) = @_;
+    return unless $type;
+    my $sth   = database->prepare(q|
+        SELECT AVG(value) as med
+        FROM
+        (
+            SELECT @counter:=@counter+1 as row_id, v1.value
+            FROM volumetry v1, (select @counter:=0) v2
+            WHERE v1.name=?
+            ORDER BY v1.value
+        ) o1
+        JOIN
+        (
+            SELECT count(*) as total_rows
+            FROM volumetry
+            WHERE name=?
+        ) o2
+        WHERE o1.row_id in (FLOOR((o2.total_rows + 1)/2), FLOOR((o2.total_rows + 2)/2))
+    |);
+    $sth->execute($type, $type);
+    my $tmp = $sth->fetchrow_hashref;
+    return $tmp->{med};
 }
 
 sub syspref_repartition {

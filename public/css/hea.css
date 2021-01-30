@@ -56,3 +56,22 @@ table#lib_name_url tr:nth-child(even) {
 table#lib_name_url td {
   padding: 10px 20px 10px 20px ;
 }
+
+table#value {
+   margin: 0px auto;
+}
+
+
+table#value thead th {
+   text-align: center;
+}
+
+table#value td {
+   text-align: right;
+   width: 18%;
+}
+
+table#value tbody tr th {
+   text-align: left;
+   width: 10%;
+}
